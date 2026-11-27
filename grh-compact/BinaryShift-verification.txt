@@ -1,0 +1,22 @@
+Local verification; no Jenkins submission.
+Lean (version 4.35.0, x86_64-w64-windows-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)
+GRH base: 72fead102f663d5c7a407964a13dc0cf9d977207
+Mathlib: 56a005855ea17e0b0958f73ec801ae140b0a1679
+Frozen statement SHA-256 (UTF-8, no newline): 29b707e3961306da1785aa5759d267ea28ee18e7487d30b39a7272c6f2ede2ed
+
+exit=0 PEqualNP.Outside.L_goldbach_grh_goldbach_exception_density
+exit=0 lake build --no-build +Main:olean
+exit=0 CheckerSuite.GRHConsumer
+exit=0 Conjectures.Goldbach.BinaryShiftExceptionUnion
+exit=0 audit
+
+Audit compiler stdout:
+Conjectures.Goldbach.BinaryShiftExceptionUnion :
+  have G := fun m => {p ∈ Finset.range (m + 1) | Nat.Prime p ∧ Nat.Prime (m - p)}.card;
+  ∃ X₀,
+    ∀ X ≥ X₀,
+      have L := Nat.log 2 X / 2;
+      have E := {n ∈ Finset.Ico X (2 * X) | Even n ∧ 0 < {e ∈ Finset.Icc 1 L | G (n - 2 ^ e) = 0}.card};
+      E.card ^ 5 ≤ X ^ 4
+'LFunction_eq_zero_re' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Conjectures.Goldbach.BinaryShiftExceptionUnion' depends on axioms: [propext, Classical.choice, Quot.sound]
